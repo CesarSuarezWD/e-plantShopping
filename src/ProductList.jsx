@@ -7,9 +7,9 @@ import CartItem from './CartItem';
 function ProductList() {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false);
-    const [addedToCart, setAddedToCart] = useState({});
 
     const dispatch = useDispatch();
+
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
     const plantsArray = [
@@ -238,10 +238,6 @@ function ProductList() {
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [product.name]: true,
-        }));
     };
 
     return (

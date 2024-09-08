@@ -7,11 +7,11 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
+  const parseCost = (cost) => parseFloat(cost.replace('$', ''));
+
   const calculateTotalAmount = () => {
     return cart.reduce((total, item) => {
-      // Asegúrate de convertir el costo a un número antes de multiplicar
-      const cost = parseFloat(item.cost.replace('$', ''));
-      return total + (cost * item.quantity);
+      return total + (parseCost(item.cost) * item.quantity);
     }, 0);
   };
 
@@ -38,13 +38,12 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const calculateTotalCost = (item) => {
-    const cost = parseFloat(item.cost.replace('$', ''));
-    return (cost * item.quantity);
+    return (parseCost(item.cost) * item.quantity).toFixed(2);
   };
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount().toFixed(2)}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
