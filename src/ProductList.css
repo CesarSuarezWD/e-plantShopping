@@ -170,7 +170,12 @@ body {
     margin-left: 27px;
     position: absolute;
     font-size: 29px;
-
+}
+.cart-quantity{
+    font-size: 0.4em;
+    align-self: center;
+    position: relative;
+    right: 38px;
 }
 .plantname_heading{
    display: flex;

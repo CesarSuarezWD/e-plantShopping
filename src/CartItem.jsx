@@ -38,12 +38,12 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const calculateTotalCost = (item) => {
-    return (parseCost(item.cost) * item.quantity).toFixed(2);
+    return (parseCost(item.cost) * item.quantity);
   };
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount().toFixed(2)}</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
