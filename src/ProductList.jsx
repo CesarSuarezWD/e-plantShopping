@@ -7,10 +7,16 @@ import CartItem from './CartItem';
 function ProductList() {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false);
+    const [addedToCart, setAddedToCart] = useState({});
 
     const dispatch = useDispatch();
-
+    const cartItems = useSelector(state => state.cart.items);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
+
+    // Helper function to check if item is in the cart
+    const isItemInCart = (itemName) => {
+        return cartItems.some(item => item.name === itemName);
+    };
 
     const plantsArray = [
         {
@@ -238,6 +244,10 @@ function ProductList() {
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [product.name]: true,
+        }));
     };
 
     return (
@@ -282,7 +292,13 @@ function ProductList() {
                                         <div className="product-title">{plant.name}</div>
                                         <p>{plant.description}</p>
                                         <p className="product-price">{plant.cost}</p>
-                                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        <button 
+                                            className={`product-button ${isItemInCart(plant.name) ? 'added' : ''}`}
+                                            onClick={() => handleAddToCart(plant)}
+                                            disabled={isItemInCart(plant.name)} // Disable if item is already in the cart
+                                        >
+                                            {isItemInCart(plant.name) ? 'Added' : 'Add to Cart'}
+                                        </button>
                                     </div>
                                 ))}
                             </div>
